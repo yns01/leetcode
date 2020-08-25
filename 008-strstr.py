@@ -33,12 +33,22 @@ class Solution:
 
         return -1
 
+    def strStr2(self, haystack: str, needle: str) -> int:
+        if not needle:
+            return 0
+
+        for i in range(0, len(haystack)-len(needle) + 1):
+            if haystack[i:i+len(needle)] == needle:
+                return i
+
+        return -1
+
 
 s = Solution()
-print(s.strStr("hello", 'll'))
-print(s.strStr("helllok", 'lok'))
-print(s.strStr("helllokl", 'lok'))
-print(s.strStr("lolok", 'lok'))
-print(s.strStr("lolo", 'lok'))
-print(s.strStr("lo", 'lok'))
-print(s.strStr("mississippi", 'issip'))
+print(s.strStr2("hello", 'll'))
+print(s.strStr2("helllok", 'lok'))
+print(s.strStr2("helllokl", 'lok'))
+print(s.strStr2("lolok", 'lok'))
+print(s.strStr2("lolo", 'lok'))
+print(s.strStr2("lo", 'lok'))
+print(s.strStr2("mississippi", 'issip'))
