@@ -1,5 +1,6 @@
 from typing import List
 import queue
+from collections import deque
 
 
 class TreeNode:
@@ -22,30 +23,55 @@ class Solution:
         if not root:
             return []
 
-        qe = queue.Queue()
-        qe.put((root, 0))
+        qe = deque()
+        qe.append((root, 0))
 
         traversal = []
-        while not qe.empty():
-            node, level = qe.get()
+        while len(qe):
+            node, level = qe.popleft()
             if len(traversal) <= level:
                 traversal.append([node.val])
             else:
                 traversal[level].append(node.val)
 
             if node.left:
-                qe.put((node.left, level+1))
+                qe.append((node.left, level+1))
 
             if node.right:
-                qe.put((node.right, level+1))
+                qe.append((node.right, level+1))
 
+        return traversal
+
+    def levelOrderv2(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+
+        qe, traversal = deque(), []
+        qe.append(root)
+
+        while len(qe):
+            level_nodes = []
+
+            for _ in range(len(qe)):
+                node = qe.popleft()
+                level_nodes.append(node.val)
+
+                if node.left:
+                    qe.append(node.left)
+
+                if node.right:
+                    qe.append(node.right)
+
+            traversal.append(level_nodes)
         return traversal
 
 
 tree = TreeNode(50)
-left = tree.insert_left(40)
-left_left = left.insert_left(30)
-left_left_left = left_left.insert_left(20)
-left_left_left.insert_left(10)
-result = Solution().levelOrder(tree)
+left = tree.insert_left(30)
+right = tree.insert_right(70)
+left.insert_left(10)
+left.insert_right(40)
+right.insert_left(60)
+right.insert_right(80)
+result = Solution().levelOrderv2(tree)
 print(result)
