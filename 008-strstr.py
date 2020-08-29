@@ -1,7 +1,7 @@
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
         if not needle:
-            return -1
+            return 0
 
         for i in range(len(haystack) - len(needle) + 1):
             for j in range(len(needle)):
