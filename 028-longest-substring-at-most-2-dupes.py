@@ -23,11 +23,9 @@ class Solution:
                     front_cursor - tail_cursor)
 
             else:
-                count = distinct_chars[s[tail_cursor]]
-                if count == 1:
+                distinct_chars[s[tail_cursor]] -= 1
+                if distinct_chars[s[tail_cursor]] == 0:
                     del distinct_chars[s[tail_cursor]]
-                else:
-                    distinct_chars[s[tail_cursor]] -= 1
 
                 tail_cursor += 1
 
