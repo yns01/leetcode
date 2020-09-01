@@ -16,12 +16,11 @@ class Solution:
             return None
 
         node_a, node_b = headA, headB
-        count = 0
+
         while headA and headB:
             if headA is headB:
                 return headA
 
-            count += 0
             headA = headA.next
             headB = headB.next
 
@@ -29,13 +28,16 @@ class Solution:
             return None
 
         if headA is None:
+            # Rewind headA
             headA = node_a
 
+            # Finish iterating over headb and count how much more nodes there are
             diff_count = 0
             while headB:
                 diff_count += 1
                 headB = headB.next
 
+            # Now reset node b and fast forward it by diff_count nodes.
             headB = node_b
             ff = 0
             while ff < diff_count:
@@ -57,6 +59,7 @@ class Solution:
                 headA = headA.next
                 ff += 1
 
+        # At this stage, we will iterate over both lists until we find the intersection
         while headA and headB:
             if headA is headB:
                 return headA
