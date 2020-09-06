@@ -25,16 +25,16 @@ class Solution:
         while left < right:
             s = first_term + nums[left] + nums[right]
             if s == 0:
-                current_left_value = nums[left]
-                current_right_value = nums[right]
+                second_term = nums[left]
+                third_term = nums[right]
 
                 triplets.append(
-                    [first_term, current_left_value, current_right_value])
+                    [first_term, second_term, third_term])
 
-                while left < right and nums[left] == current_left_value:
+                while left < right and nums[left] == second_term:
                     left += 1
 
-                while left < right and current_right_value == nums[right]:
+                while left < right and nums[right] == third_term:
                     right -= 1
 
             if s < 0:
