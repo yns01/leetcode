@@ -30,25 +30,17 @@ class Solution:
             l1 = l1.next
             l2 = l2.next
 
-        while l1:
-            s = l1.val + carry
+        # If we did not finish iterating over one of the two list:
+        node = l1 or l2
+        while node:
+            s = node.val + carry
             carry = s // 10
             s %= 10
 
             last_node.next = ListNode(s)
             last_node = last_node.next
 
-            l1 = l1.next
-
-        while l2:
-            s = l2.val + carry
-            carry = s // 10
-            s %= 10
-
-            last_node.next = ListNode(s)
-            last_node = last_node.next
-
-            l2 = l2.next
+            node = node.next
 
         if carry:
             last_node.next = ListNode(carry)
