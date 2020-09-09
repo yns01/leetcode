@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 import queue
 
 
@@ -33,27 +33,27 @@ class Solution:
         if not preorder or not inorder:
             return None
 
-        inorder_map = {}
-        for i, n_val in enumerate(inorder):
-            inorder_map[n_val] = i
+        in_order_map = {}
+        for i, n in enumerate(inorder):
+            in_order_map[n] = i
 
-        return self._build(preorder, self.preorder_index, inorder_map, 0, len(preorder)-1)
+        return self.__build_tree(preorder, in_order_map, 0, len(inorder)-1)
 
-    def _build(self, preorder, preorder_index, inorder_map, inorder_left, inorder_right):
-        if inorder_left > inorder_right:
+    def __build_tree(self, preorder: List[int], in_order_map: Dict[int, int], in_order_predecessors_start: int, in_order_predecessors_end: int):
+        if self.preorder_index >= len(preorder):
             return None
 
-        if preorder_index >= len(preorder):
+        if in_order_predecessors_start > in_order_predecessors_end:
             return None
 
-        n = TreeNode(preorder[preorder_index])
+        n = TreeNode(preorder[self.preorder_index])
         self.preorder_index += 1
 
-        n.left = self._build(preorder, self.preorder_index,
-                             inorder_map, inorder_left, inorder_map[n.val]-1)
+        n.left = self.__build_tree(
+            preorder, in_order_map, in_order_predecessors_start, in_order_map[n.val]-1)
 
-        n.right = self._build(preorder, self.preorder_index,
-                              inorder_map, inorder_map[n.val]+1, inorder_right)
+        n.right = self.__build_tree(
+            preorder, in_order_map, in_order_map[n.val]+1, in_order_predecessors_end)
 
         return n
 
