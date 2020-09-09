@@ -39,21 +39,21 @@ class Solution:
 
         return self.__build_tree(preorder, in_order_map, 0, len(inorder)-1)
 
-    def __build_tree(self, preorder: List[int], in_order_map: Dict[int, int], in_order_predecessors_start: int, in_order_predecessors_end: int):
+    def __build_tree(self, preorder: List[int], in_order_map: Dict[int, int], in_order_elements_start: int, in_order_elements_end: int):
         if self.preorder_index >= len(preorder):
             return None
 
-        if in_order_predecessors_start > in_order_predecessors_end:
+        if in_order_elements_start > in_order_elements_end:
             return None
 
         n = TreeNode(preorder[self.preorder_index])
         self.preorder_index += 1
 
         n.left = self.__build_tree(
-            preorder, in_order_map, in_order_predecessors_start, in_order_map[n.val]-1)
+            preorder, in_order_map, in_order_elements_start, in_order_map[n.val]-1)
 
         n.right = self.__build_tree(
-            preorder, in_order_map, in_order_map[n.val]+1, in_order_predecessors_end)
+            preorder, in_order_map, in_order_map[n.val]+1, in_order_elements_end)
 
         return n
 
