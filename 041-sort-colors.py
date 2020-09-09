@@ -24,7 +24,24 @@ class Solution:
             if nums[last_swapable_position] == 1:
                 last_swapable_position += 1
 
+    def sort_colors(self, nums: List[int]) -> None:
+        if not nums:
+            return None
 
-i = [1, 0, 2, 0, 2, 1, 2, 0, 0]
-Solution().sortColors(i)
+        left, right, current = 0, len(nums)-1, 0
+
+        while current <= right:
+            if nums[current] == 0:
+                nums[left], nums[current] = nums[current], nums[left]
+                left += 1
+                current += 1
+            elif nums[current] == 2:
+                nums[right], nums[current] = nums[current], nums[right]
+                right -= 1
+            else:
+                current += 1
+
+
+i = [0, 0, 0, 0, 1, 1, 2, 0, 0]
+Solution().sort_colors(i)
 print(i)
