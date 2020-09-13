@@ -81,18 +81,17 @@ class Codec:
         while que and serial_index < len(serialized_nodes):
             n = que.popleft()
 
-            if n:
-                v = serialized_nodes[serial_index]
-                serial_index += 1
-                if v != 'None':
-                    n.left = TreeNode(int(v))
-                    que.append(n.left)
+            v = serialized_nodes[serial_index]
+            serial_index += 1
+            if v != 'None':
+                n.left = TreeNode(int(v))
+                que.append(n.left)
 
-                v = serialized_nodes[serial_index]
-                serial_index += 1
-                if v != 'None':
-                    n.right = TreeNode(int(v))
-                    que.append(n.right)
+            v = serialized_nodes[serial_index]
+            serial_index += 1
+            if v != 'None':
+                n.right = TreeNode(int(v))
+                que.append(n.right)
 
         return root
 
