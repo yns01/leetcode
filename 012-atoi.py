@@ -1,41 +1,31 @@
 class Solution:
-    def myAtoi(self, str: str) -> int:
-        if not str:
+    def myAtoi(self, input: str) -> int:
+        to_convert = input.lstrip()
+        if not to_convert:
             return 0
 
-        digits = ""
+        def is_sign(c):
+            return c == "+" or c == '-'
 
-        for c in str:
-            if (c != "+" and c != "-" and not c.isdigit()):
-                if digits:
-                    break
-                if not digits and c == ' ':
-                    continue
-                else:
-                    return 0
-            else:
-                digits += c
+        sign = 1
+        if is_sign(to_convert[0]):
+            sign = -1 if to_convert[0] == '-' else 1
+            to_convert = to_convert[1:]
 
-        result, multiplier = 0, 1
-        INT_MIN = -2**31
-        INT_MAX = 2**31 - 1
+        result = 0
+        for c in to_convert:
+            if not c.isdigit():
+                break
 
-        for i in range(len(digits) - 1, -1, -1):
-            if digits[i] == '-':
-                result *= -1
-            elif digits[i] == '+':
-                result *= 1
-            else:
-                result += multiplier * int(digits[i])
-                multiplier *= 10
+            result = result * 10 + int(c)
 
-        if result < INT_MIN:
-            result = INT_MIN
-        elif result > INT_MAX:
-            result = INT_MAX
+        result *= sign
+
+        result = min(2**31-1, result)
+        result = max(-2**31, result)
 
         return result
 
 
 s = Solution()
-print(s.myAtoi("91283472332"))
+print(s.myAtoi("-5-"))
