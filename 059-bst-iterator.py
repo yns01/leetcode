@@ -18,26 +18,20 @@ class BSTIterator:
     def __init__(self, root: TreeNode):
         self.root = root
         self.stack = []
-        self.last_element_popped = None
-
-        self.__populate_stack()
+        self.__populate_stack(self.root)
 
     def next(self) -> int:
         e = self.stack.pop()
-        self.last_element_popped = e
-        self.__populate_stack()
+        if e.right:
+            self.__populate_stack(e.right)
 
         return e.val
 
     def hasNext(self) -> bool:
-        if self.stack:
-            return True
+        return len(self.stack) >= 1
 
-        self.__populate_stack()
-        return self.stack
-
-    def __populate_stack(self):
-        node = self.last_element_popped.right if self.last_element_popped else self.root
+    def __populate_stack(self, from_node: TreeNode):
+        node = from_node
 
         while node:
             self.stack.append(node)
