@@ -42,7 +42,7 @@ class Codec:
         if not root:
             return ""
 
-        serial = []
+        serialization = []
         nodes = deque()
         nodes.append(root)
 
@@ -52,46 +52,45 @@ class Codec:
 
             for _ in range(len(nodes)):
                 n = nodes.popleft()
-                level_nodes.append(n.val if n else None)
 
                 if n:
                     at_least_one_node_in_level = True
+                    level_nodes.append(n.val)
                     nodes.append(n.left)
                     nodes.append(n.right)
+                else:
+                    level_nodes.append(str(None))
 
             if at_least_one_node_in_level:
-                serial.extend(level_nodes)
+                serialization.extend(level_nodes)
 
-        serialized = ''
-        for n in serial:
-            serialized += str(n) + ','
-
-        return serialized[:-1]
+        serialized = ','.join(map(str, serialization))
+        return serialized
 
     def deserialize(self, data: str) -> TreeNode:
         if not data:
-            return None
+            return
 
-        serialized_nodes = data.split(',')
-        root = TreeNode(int(serialized_nodes[0]))
-        que = deque()
-        que.append(root)
+        deserialized, deserialized_index = data.split(','), 0
+        root = TreeNode(int(deserialized[deserialized_index]))
+        deserialized_index += 1
+        nodes = deque()
+        nodes.append(root)
 
-        serial_index = 1
-        while que and serial_index < len(serialized_nodes):
-            n = que.popleft()
+        while nodes and deserialized_index < len(deserialized):
+            n = nodes.popleft()
 
-            v = serialized_nodes[serial_index]
-            serial_index += 1
-            if v != 'None':
-                n.left = TreeNode(int(v))
-                que.append(n.left)
+            left = deserialized[deserialized_index]
+            deserialized_index += 1
+            if left != str(None):
+                n.left = TreeNode(int(left))
+                nodes.append(n.left)
 
-            v = serialized_nodes[serial_index]
-            serial_index += 1
-            if v != 'None':
-                n.right = TreeNode(int(v))
-                que.append(n.right)
+            right = deserialized[deserialized_index]
+            deserialized_index += 1
+            if right != str(None):
+                n.right = TreeNode(int(right))
+                nodes.append(n.right)
 
         return root
 
