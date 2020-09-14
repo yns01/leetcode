@@ -94,6 +94,44 @@ class Codec:
 
         return root
 
+    def serialize_preorder(self, root: TreeNode) -> str:
+        if not root:
+            return ''
+
+        def rserialize(node: TreeNode):
+            if not node:
+                serialization.append(str(None))
+                return
+
+            serialization.append(node.val)
+            rserialize(node.left)
+            rserialize(node.right)
+
+        serialization = deque()
+        rserialize(root)
+
+        return ','.join(map(str, serialization))
+
+    def deserialize_preorder(self, data: str) -> TreeNode:
+        if not data:
+            return None
+
+        def rdeserialize(deserialized_values: deque) -> TreeNode:
+            v = deserialized_values.popleft()
+            if v == str(None):
+                return
+
+            node = TreeNode(int(v))
+            node.left = rdeserialize(deserialized_values)
+            node.right = rdeserialize(deserialized_values)
+
+            return node
+
+        deserialized = deque(data.split(','))
+        root = rdeserialize(deserialized)
+
+        return root
+
 
 tree = TreeNode(1)
 left = tree.insert_left(2)
@@ -110,3 +148,6 @@ codec = Codec()
 level_order_traversal(codec.deserialize(codec.serialize(tree)))
 
 codec.deserialize(codec.serialize(None))
+
+level_order_traversal(codec.deserialize_preorder(
+    (codec.serialize_preorder(tree))))
