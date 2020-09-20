@@ -24,9 +24,6 @@ class Solution:
 
         if right >= 0:
             nums1[:write_index+1] = nums2[:right+1]
-            for i in range(right, -1, -1):
-                nums1[write_index] = nums2[i]
-                write_index -= 1
 
 
 input = [1, 2, 3, 13, 15, 20, 30, 0, 0, 0, 0, 0, 0]
