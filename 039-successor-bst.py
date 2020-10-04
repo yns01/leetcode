@@ -10,26 +10,22 @@ class Solution:
         if not root:
             return None
 
-        stack, current = [], root
+        candidate, current = None, root
 
         while current:
-            stack.append(current)
             if current is p:
                 current = current.right
-            elif p.val < current.val:
+            elif p.val <= current.val:
+                candidate = current
                 current = current.left
             elif p.val > current.val:
                 current = current.right
 
-        while stack:
-            n = stack.pop()
-            if n.val > p.val:
-                return n
-
-        return None
+        return candidate
 
 
 n = TreeNode(2)
-n.right = TreeNode(3)
+n.right = TreeNode(2)
 
-Solution().inorderSuccessor(n, n)
+a = Solution().inorderSuccessor(n, n)
+print(n.right is a)
