@@ -11,9 +11,8 @@ class Solution:
         for n in nums:
             if len(h) < k:
                 heapq.heappush(h, n)
-            elif n > h[0]:
-                heapq.heappop(h)
-                heapq.heappush(h, n)
+            else:
+                heapq.heappushpop(h, n)
 
         return h[0]
 
