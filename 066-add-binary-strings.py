@@ -8,30 +8,17 @@ class Solution:
         carry = 0
         result = collections.deque()
 
-        while pa >= 0 and pb >= 0:
-            s = (int(a[pa]) + int(b[pb]) + carry)
+        while pa >= 0 or pb >= 0:
+            da = int(a[pa]) if pa >= 0 else 0
+            db = int(b[pb]) if pb >= 0 else 0
+
+            s = da + db + carry
             carry = s // 2
             s %= 2
 
             result.appendleft(str(s))
 
             pa -= 1
-            pb -= 1
-
-        while pa >= 0:
-            s = (int(a[pa]) + carry)
-            carry = s // 2
-            s %= 2
-
-            result.appendleft(str(s))
-            pa -= 1
-
-        while pb >= 0:
-            s = (int(b[pb]) + carry)
-            carry = s // 2
-            s %= 2
-
-            result.appendleft(str(s))
             pb -= 1
 
         if carry:
