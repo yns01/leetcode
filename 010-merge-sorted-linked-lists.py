@@ -22,19 +22,13 @@ class Solution:
             sorted_list_curr.next = sorted_list_node
             sorted_list_curr = sorted_list_curr.next
 
-        while l1:
-            n = ListNode(l1.val)
+        list_to_finish = l1 or l2
+        while list_to_finish:
+            n = ListNode(list_to_finish.val)
             sorted_list_curr.next = n
             sorted_list_curr = sorted_list_curr.next
 
-            l1 = l1.next
-
-        while l2:
-            n = ListNode(l2.val)
-            sorted_list_curr.next = n
-            sorted_list_curr = sorted_list_curr.next
-
-            l2 = l2.next
+            list_to_finish = list_to_finish.next
 
         # Return the second node as the first one is a dummy. It helps when inserting a node as we don't have to check
         # whether we're inserting the head or not.
