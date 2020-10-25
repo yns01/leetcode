@@ -47,29 +47,6 @@ class Solution:
         root.left = None
         return left_most
 
-    def levelOrderv2(self, root: TreeNode) -> List[List[int]]:
-        if not root:
-            return []
-
-        qe, traversal = deque(), []
-        qe.append(root)
-
-        while len(qe):
-            level_nodes = []
-
-            for _ in range(len(qe)):
-                node = qe.popleft()
-                level_nodes.append(node.val)
-
-                if node.left:
-                    qe.append(node.left)
-
-                if node.right:
-                    qe.append(node.right)
-
-            traversal.append(level_nodes)
-        return traversal
-
 
 tree = TreeNode(50)
 left = tree.insert_left(30)
@@ -80,6 +57,6 @@ right.insert_left(60)
 right.insert_right(80)
 
 s = Solution()
-print(s.levelOrderv2(tree))
-s.flatten(tree)
-print(s.levelOrderv2(tree))
+print(s.flatten(tree))
+# s.flatten(tree)
+# print(s.flatten(tree))

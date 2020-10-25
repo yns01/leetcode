@@ -11,13 +11,13 @@ class Solution:
             '9': "wxyz"
         }
 
-        def backtrack(digits, combinations):
-            if not digits:
+        def backtrack(digits, digit_index, combinations):
+            if digit_index == len(digits):
                 res.append(combinations)
                 return
 
-            for l in digit_to_letters[digits[0]]:
-                backtrack(digits[1:], combinations+l)
+            for l in digit_to_letters[digits[digit_index]]:
+                backtrack(digits, digit_index+1, combinations+l)
 
             return None
 
@@ -25,7 +25,7 @@ class Solution:
         if not digits:
             return res
 
-        backtrack(digits, '')
+        backtrack(digits, 0, '')
         return res
 
 

@@ -34,8 +34,7 @@ class Solution:
             if current_meeting_start < minheap[0]:
                 heapq.heappush(minheap, current_meeting_end)
             else:
-                heapq.heappop(minheap)
-                heapq.heappush(minheap, current_meeting_end)
+                heapq.heappushpop(minheap, current_meeting_end)
 
         return len(minheap)
 
