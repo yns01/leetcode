@@ -48,8 +48,9 @@ class Solution:
                 count += 1
             elif b == ')':
                 count -= 1
-                if count < 0:
-                    return False
+
+            if count < 0:
+                return False
 
         return not count
 
