@@ -11,6 +11,25 @@ def print_list(n: ListNode):
 
 
 class Solution:
+    def getIntersectionNodeV1(self, headA: ListNode, headB: ListNode) -> ListNode:
+        if not headA or not headB:
+            return None
+
+        pa, pb = headA, headB
+
+        while pa != pb:
+            if pa:
+                pa = pa.next
+            else:
+                pa = headB
+
+            if pb:
+                pb = pb.next
+            else:
+                pb = headA
+
+        return pa
+
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         if not headA or not headB:
             return None
