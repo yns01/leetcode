@@ -34,59 +34,27 @@ class Solution:
         if not headA or not headB:
             return None
 
-        node_a, node_b = headA, headB
+        a_count, b_count = self.count(headA), self.count(headB)
 
-        while headA and headB:
-            if headA is headB:
-                return headA
+        while a_count > b_count:
+            a_count -= 1
+            headA = headA.next
 
+        while b_count > a_count:
+            b_count -= 1
+            headB = headB.next
+
+        while headA != headB:
             headA = headA.next
             headB = headB.next
 
-        if not headA and not headB:
-            return None
+        return headA
 
-        if headA is None:
-            # Rewind headA
-            headA = node_a
+    def count(self, node):
+        if not node:
+            return 0
 
-            # Finish iterating over headb and count how much more nodes there are
-            diff_count = 0
-            while headB:
-                diff_count += 1
-                headB = headB.next
-
-            # Now reset node b and fast forward it by diff_count nodes.
-            headB = node_b
-            ff = 0
-            while ff < diff_count:
-                headB = headB.next
-                ff += 1
-
-        if headB is None:
-            headB = node_b
-
-            diff_count = 0
-            while headA:
-                diff_count += 1
-                headA = headA.next
-
-            headA = node_a
-            ff = 0
-
-            while ff < diff_count:
-                headA = headA.next
-                ff += 1
-
-        # At this stage, we will iterate over both lists until we find the intersection
-        while headA and headB:
-            if headA is headB:
-                return headA
-
-            headA = headA.next
-            headB = headB.next
-
-        return None
+        return self.count(node.next) + 1
 
 
 l5 = ListNode(5)
