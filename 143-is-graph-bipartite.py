@@ -43,8 +43,43 @@ class Solution:
         else:
             return 'black'
 
+    def isBipartiteDFS(self, graph: List[List[int]]) -> bool:
+        BLACK, WHITE, colored = 0, 1, {}
+
+        def get_next_color(current_color):
+            if current_color == BLACK:
+                return WHITE
+            else:
+                return BLACK
+
+        def visit(n, color):
+            colored[n] = color
+
+            for nei in graph[n]:
+                if nei not in colored:
+                    can_be_colored = visit(nei, get_next_color(color))
+                    if not can_be_colored:
+                        return False
+                elif nei in colored and colored[nei] == color:
+                    return False
+
+            return True
+
+        for n in range(len(graph)):
+            if n not in colored:
+                can_be_colored = visit(n, BLACK)
+                if not can_be_colored:
+                    return False
+
+        return True
+
 
 print(Solution().isBipartite(
     [[3], [7, 9], [], [0, 5], [], [3], [9], [1], [], [1, 6]]))
 
 print(Solution().isBipartite([[1, 2, 3], [0, 2], [0, 1, 3], [0, 2]]))
+
+print(Solution().isBipartiteDFS(
+    [[3], [7, 9], [], [0, 5], [], [3], [9], [1], [], [1, 6]]))
+
+print(Solution().isBipartiteDFS([[1, 2, 3], [0, 2], [0, 1, 3], [0, 2]]))
