@@ -16,9 +16,6 @@ class Solution:
             left_subtree, left_depth = dfs(node.left, current_depth)
             right_subtree, right_depth = dfs(node.right, current_depth)
 
-            if not left_subtree and not right_subtree:
-                return (node, current_depth)
-
             if left_depth > right_depth:
                 return (left_subtree, left_depth)
             elif right_depth > left_depth:
@@ -26,7 +23,21 @@ class Solution:
             else:
                 return (node, right_depth)
 
-        if not root:
-            return none
+        return dfs(root, -1)[0]
+
+    def subtreeWithAllDeepestv1(self, root: TreeNode) -> TreeNode:
+        def dfs(node, current_depth):
+            if not node:
+                return (None, -1)
+
+            left_subtree, left_depth = dfs(node.left, current_depth)
+            right_subtree, right_depth = dfs(node.right, current_depth)
+
+            if left_depth > right_depth:
+                return (left_subtree, left_depth+1)
+            elif right_depth > left_depth:
+                return (right_subtree, right_depth+1)
+            else:
+                return (node, right_depth+1)
 
         return dfs(root, -1)[0]
