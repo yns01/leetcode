@@ -26,12 +26,12 @@ class Solution:
         return dfs(root, -1)[0]
 
     def subtreeWithAllDeepestv1(self, root: TreeNode) -> TreeNode:
-        def dfs(node, current_depth):
+        def dfs(node):
             if not node:
                 return (None, -1)
 
-            left_subtree, left_depth = dfs(node.left, current_depth)
-            right_subtree, right_depth = dfs(node.right, current_depth)
+            left_subtree, left_depth = dfs(node.left)
+            right_subtree, right_depth = dfs(node.right)
 
             if left_depth > right_depth:
                 return (left_subtree, left_depth+1)
@@ -40,4 +40,4 @@ class Solution:
             else:
                 return (node, right_depth+1)
 
-        return dfs(root, -1)[0]
+        return dfs(root)[0]
