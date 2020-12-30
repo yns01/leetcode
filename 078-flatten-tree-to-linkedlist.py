@@ -25,11 +25,8 @@ class Solution:
         if not root:
             return
 
-        if root.left:
-            left_most = self.flatten(root.left)
-
-        if root.right:
-            right_most = self.flatten(root.right)
+        left_most = self.flatten(root.left)
+        right_most = self.flatten(root.right)
 
         if not root.left and not root.right:
             return root
