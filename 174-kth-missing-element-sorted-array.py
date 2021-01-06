@@ -4,9 +4,14 @@ from typing import List
 
 class Solution:
     def findKthPositive(self, nums: List[int], k: int) -> int:
-        # Returns the number of elements missing between 1 and index i
+        # Returns the number of elements missing between [1...i]
         def missing_from_1(i):
-            return nums[i] - i - 1
+            # the array is sorted, so nums[i] is the maximum possible value we can have
+            # (if the array ended at i)
+            # In other words, the number of elements we expect is nums[i] (+1 if 0 was the first missing)
+            # To get the missing element count, we substract the elements we already have.
+            # At index i, we have i+1 elements.
+            return nums[i] - (i + 1)
 
         i = len(nums) - 1
         total_missing = missing_from_1(i)
@@ -21,6 +26,11 @@ class Solution:
         k -= missing_before_nums0
 
         # Returns the number of missing elements between index left and right
+        # To get this formula, we can compute the missing from [1...right] - missing from [1...left]
+        # nums[right] - (right+1) - (nums[left] - (left + 1))
+        # = nums[right] - right - 1 - (nums[left] - left - 1)
+        # = nums[right] - right - 1 - nums[left] + left + 1
+        # = nums[right] - nums[left] - (right - left)
         def missing(left, right):
             return nums[right] - nums[left] - (right - left)
 
