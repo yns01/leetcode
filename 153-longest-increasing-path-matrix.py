@@ -7,7 +7,7 @@ class Solution:
         if not matrix:
             return 0
 
-        # We don't need the cache as the path must be strictly increasing.
+        # We don't a seen set as the path must be strictly increasing.
         # If we made progress towards a path, we will not be able to come back
         # to an already seen element as it will necessarily be smaller
         cache = {}
