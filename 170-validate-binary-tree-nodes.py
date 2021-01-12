@@ -34,6 +34,19 @@ class Solution:
         # B. We transform the directed graph in an undirected graph. In an undirected graph,
         # we can reach every node from every node. From there, we DFS the graph and make sure we don't see the same
         # node twice unless it's a parent (simple cycles).
+        # Interesting: For the following case n = 2, leftChild = [1,0], rightChild = [-1,-1]
+        # 0 <-> 1
+        # One may assume that when building an undirected graph we would then mark this graph as a valid tree
+        # because the cycle would be considered a simple cycle.
+        # That would be tru if the adcency list looked like:
+        # 0: 1
+        # 1: 0
+        # However, the above example will have the following adjency list:
+        # 0: 1, 1
+        # 1: 0, 0
+        # Starting at 0, we will visit the first 1, skip its neighors are they equals the parent
+        # Coming back to node 0, we continue our iteration of the neighbors and try to visit the
+        # second one. But we already saw it so we stop here.
 
         def dfs(node):
             if node == -1:
