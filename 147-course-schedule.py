@@ -18,33 +18,27 @@ class Solution:
         seen, VISITING, VISITED = {}, 0, 1
 
         def visit(course):
-            total_courses = 0
             seen[course] = VISITING
 
             for dep in courses.get(course, []):
                 if dep not in seen:
-                    cycle, count = visit(dep)
+                    cycle = visit(dep)
                     if cycle:
-                        return (True, -1)
+                        return True
 
-                    total_courses += count
                 elif seen[dep] == VISITING:
-                    return (True, -1)
-
-            seen[course] = VISITED
-            return (False, total_courses + 1)
-
-        attended = 0
-        for c in courses:
-            if c not in seen:
-                cycle, count = visit(c)
-                if not cycle:
-                    attended += count
-
-                if attended >= numCourses:
                     return True
 
-        return attended >= numCourses
+            seen[course] = VISITED
+            return False
+
+        for c in courses:
+            if c not in seen:
+                cycle = visit(c)
+                if cycle:
+                    return False
+
+        return True
 
 
 print(Solution().canFinish(2, [[1, 0], [0, 1]]))
