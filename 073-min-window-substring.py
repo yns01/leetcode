@@ -19,7 +19,7 @@ class Solution:
         formed = 0
 
         window_start = 0
-        # Window size, window start, window end (inclusive)
+        # Window size, window start, window end (exclusive)
         window_result = (math.inf, None, None)
 
         for window_end in range(len(s)):
@@ -52,4 +52,4 @@ class Solution:
         return '' if window_result[0] == math.inf else s[window_result[1]:window_result[2]]
 
 
-print(Solution().minWindow('aa', 'aa'))
+print(Solution().minWindow('ADOBECODEBANC', 'ABC'))
