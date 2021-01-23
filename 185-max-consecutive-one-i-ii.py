@@ -27,6 +27,29 @@ class Solution:
         # we have not yet computed the max in res
         return max(res, count)
 
+    def findMaxConsecutiveOnesSlidingWindow(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+
+        window_start, zeroes_count, res = 0, 0, 0
+
+        for window_end in range(len(nums)):
+            current_num = nums[window_end]
+
+            if current_num == 0:
+                zeroes_count += 1
+
+            # Reduce window until contract is valid
+            while zeroes_count >= 2:
+                if nums[window_start] == 0:
+                    zeroes_count -= 1
+
+                window_start += 1
+
+            res = max(res, window_end - window_start + 1)
+
+        return res
+
     def findMaxConsecutiveOnes_I(self, nums: List[int]) -> int:
         if not nums:
             return 0
