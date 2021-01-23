@@ -40,7 +40,10 @@ class Solution:
                 zeroes_count += 1
 
             # Reduce window until contract is valid
-            while zeroes_count >= 2:
+            # We allow only 1 zero to be flipped, in other words
+            # if zeroes_count is greater than 1, our contract
+            # is not valid
+            while zeroes_count > 1:
                 if nums[window_start] == 0:
                     zeroes_count -= 1
 
