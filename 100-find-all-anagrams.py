@@ -16,10 +16,9 @@ class Solution:
         for window_end in range(len(s)):
             current_char = s[window_end]
 
-            if current_char in dict_p:
-                window_chars[current_char] += 1
-                if window_chars.get(current_char) == dict_p.get(current_char):
-                    formed += 1
+            window_chars[current_char] += 1
+            if current_char in dict_p and window_chars.get(current_char) == dict_p.get(current_char):
+                formed += 1
 
             while formed == required:
                 if (window_end - window_start + 1 == len(p)):
@@ -39,3 +38,4 @@ class Solution:
 
 
 print(Solution().findAnagrams('eabcd', 'aab'))
+print(Solution().findAnagrams("cbaebabacd", "abc"))
