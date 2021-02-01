@@ -28,31 +28,20 @@ class Solution:
 
         visited = set()
 
-        # def visit(vertex, merged):
-        #     visited.add(vertex)
-        #     merged.append(vertex)
+        def visit(vertex, merged):
+            visited.add(vertex)
+            merged.append(vertex)
 
-        #     for u in vertices[vertex]:
-        #         if u not in visited:
-        #             visit(u, merged)
+            for u in vertices[vertex]:
+                if u not in visited:
+                    visit(u, merged)
 
         result = []
         for v in vertices:
             if v not in visited:
                 merged = []
-                stack = [v]
-                visited.add(v)
 
-                while stack:
-                    vertex = stack.pop()
-                    merged.append(vertex)
-
-                    for u in vertices[vertex]:
-                        if u not in visited:
-                            stack.append(u)
-                            visited.add(u)
-
-                # visit(v, merged)
+                visit(v, merged)
                 result.append([email_to_account_name.get(v)] + sorted(merged))
 
         return result
