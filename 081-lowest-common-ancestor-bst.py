@@ -18,6 +18,8 @@ class Solution:
         if not root:
             return None
 
+        if root is p or root is q:
+            return root
         if min(p.val, q.val) < root.val < max(p.val, q.val):
             return root
         elif root.val > p.val:
