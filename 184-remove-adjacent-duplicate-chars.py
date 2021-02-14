@@ -1,21 +1,18 @@
 class Solution:
-    def removeDuplicates(self, S: str) -> str:
-        if not S:
-            return S
+    def removeDuplicates(self, s: str) -> str:
+        if not s:
+            return ''
 
-        res = []
-
-        i = 0
-        while i < len(S):
-            current_char = S[i]
-            if res and res[-1] == current_char:
-                res.pop()
+        result = []
+        for c in s:
+            if not result:
+                result.append(c)
+            elif result[-1] == c:
+                result.pop()
             else:
-                res.append(current_char)
+                result.append(c)
 
-            i += 1
-
-        return ''.join(res)
+        return ''.join(result)
 
 
 print(Solution().removeDuplicates("abbbcddc"))
