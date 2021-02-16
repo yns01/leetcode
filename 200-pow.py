@@ -9,6 +9,9 @@ class Solution:
         if n < 0:
             return self.myPow(1/x, -n)
 
+        # x^10 = x^5 * x^5
+        # x^11 = x^5 * x^5 * x
+        # TC = O(log n), SC = O(log n)
         half = self.myPow(x, n // 2)
         result = half * half
 
