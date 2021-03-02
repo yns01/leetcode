@@ -1,4 +1,6 @@
 # https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/class Solution:
+import math
+
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -9,6 +11,25 @@ class TreeNode:
 
 class Solution:
     def maxAncestorDiff(self, root: TreeNode) -> int:
+        def recurse(node, minv, maxv):
+            if not node:
+                return
+
+            minv = min(node.val, minv)
+            maxv = max(node.val, maxv)
+
+            self.result = max(self.result,
+                              abs(node.val - minv),
+                              abs(node.val - maxv))
+
+            recurse(node.left, minv, maxv)
+            recurse(node.right, minv, maxv)
+
+        self.result = -math.inf
+        recurse(root, root.val, root.val)
+        return self.result
+
+    def maxAncestorDiffv1(self, root: TreeNode) -> int:
         if not root:
             return 0
 
